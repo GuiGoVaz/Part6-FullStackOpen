@@ -39,10 +39,12 @@ export const useAnecdotes = () => {
   const anecdotes = useAnecdoteStore((state) => state.anecdotes);
   const filter = useAnecdoteStore((state) => state.filter);
 
-  return anecdotes.filter((a) =>
-    a.content.toLowerCase().includes(filter.toLowerCase()),
-  );
+  return anecdotes
+    .filter((a) => a.content.toLowerCase().includes(filter.toLowerCase()))
+    .toSorted((a, b) => b.votes - a.votes);
 };
 export const useFilter = () => useAnecdoteStore((state) => state.filter);
 export const useAnecdotesActions = () =>
   useAnecdoteStore((state) => state.actions);
+
+export default useAnecdoteStore;
