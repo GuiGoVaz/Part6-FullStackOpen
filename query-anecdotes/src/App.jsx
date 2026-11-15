@@ -1,18 +1,17 @@
 import AnecdoteForm from './components/AnecdoteForm'
 import Notification from './components/Notification'
 
-const App = () => {
-  const handleVote = (anecdote) => {
-    console.log('vote')
-  }
+import { useAnecdotes } from './hooks/useAnecdotes'
 
-  const anecdotes = [
-    {
-      content: 'If it hurts, do it more often',
-      id: '47145',
-      votes: 0,
-    },
-  ]
+const App = () => {
+  const { anecdotes, isPending, isError, handleVote } = useAnecdotes()
+
+  if (isPending) {
+    return <div>loading data...</div>
+  }
+  if (isError) {
+    return <div>anecdote service not available due to problems in server</div>
+  }
 
   return (
     <div>
